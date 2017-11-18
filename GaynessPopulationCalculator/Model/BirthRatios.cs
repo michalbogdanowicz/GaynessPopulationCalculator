@@ -13,7 +13,8 @@ namespace GaynessPopulationCalculator.Model
     {
         public decimal Straight { get; set; }
         public decimal Lesbian { get; set; }
-        public BirthRatios(decimal straight, decimal lesbian) {
+        public BirthRatios(decimal straight, decimal lesbian)
+        {
             this.Straight = straight;
             this.Lesbian = lesbian;
         }
