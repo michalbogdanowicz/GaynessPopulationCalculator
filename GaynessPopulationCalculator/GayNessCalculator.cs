@@ -6,15 +6,6 @@ using System.Threading.Tasks;
 
 namespace GaynessPopulationCalculator
 {
-    public enum PupulationGrowth
-    {
-        /// <summary>
-        /// Stable means that from two human beings make two other human beings.
-        /// </summary>
-        Stable = 0,
-        Growing = 1
-    }
-
 
     class GayNessCalculator
     {
@@ -53,12 +44,12 @@ namespace GaynessPopulationCalculator
 
             if (WritePopDetails) { Console.WriteLine("From straight Gay Male  : {0} , Straight Male : {1}", Male.Gay,Male.Straight); }
             if (WritePopDetails) { Console.WriteLine("From straight Gay Female  : {0} , Straight Female : {1}", Female.Gay, Female.Straight); }
-
+            long saveStateOfFemaleGay = Female.Gay;
+            long saveStateOfFemaleStraight = Female.Straight;
             // lesbo 50% lesbo rate, lesbo has 100% of femlae offspring.
             DistributeLesbiansBirths(lesboBirths);
 
-        
-            if (WritePopDetails) { Console.WriteLine("From lesbo Gay Female  : {0} , Straight Female : {1}", Female.Gay, Female.Straight); }
+            if (WritePopDetails) { Console.WriteLine("From lesbo Gay Female  : {0} , Straight Female : {1}", Female.Gay - saveStateOfFemaleGay, Female.Straight - saveStateOfFemaleStraight); }
         }
 
         private void DistributeLesbiansBirths(long lesboBirths)
