@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GaynessPopulationCalculator.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,18 +22,55 @@ namespace GaynessPopulationCalculator
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, this is the gayness population calculator! Have a Pleasant day.");
-            GayNessCalculator gayNessCalculator = new GayNessCalculator(AskForPopulation(), AskForDetails());
+            Console.WriteLine();
+            BirthRatios birthRatios = new BirthRatios(2.36m, 2.36m);
+            GayNessCalculator gayNessCalculator = new GayNessCalculator(AskForPopulation(), AskForDetails(), AskForBirthRatio());
             Console.WriteLine("Press enter to go on with a generation");
             Console.WriteLine(printFormatString, gayMale,straigthMale,straigthFemale, gayFemale);
-       
+           
             while (true)
             {
                 Console.WriteLine(printFormatString, gayNessCalculator.Male.Gay, gayNessCalculator.Male.Straight, gayNessCalculator.Female.Straight, gayNessCalculator.Female.Gay);
-                Console.ReadLine(); // for not closing
+                Console.ReadLine(); 
                 gayNessCalculator.CalculateNextGeneration();
             }
 
         }
+
+        private static BirthRatios AskForBirthRatio()
+        {
+            string errorMessage = "Invalid ratio, please try again";
+            Console.WriteLine("What is the wanted Birth ratio (2010–2015 is 2.36, write d(D) for defaulting to it)?");
+            decimal ratio = 0;
+            string lineRead = Console.ReadLine();
+            if (lineRead != null && lineRead.Count() != 0)
+            {
+                if (lineRead.First() == 'd' || lineRead.First() == 'D')
+                {
+                    Console.WriteLine("Defaulting to 2.36!");
+                    return new BirthRatios(2.36m, 2.36m);
+                }
+            }
+
+            if (decimal.TryParse(lineRead, out ratio))
+            {
+                if (ratio <= 0)
+                {
+                    Console.WriteLine(errorMessage);
+                    return AskForBirthRatio();
+                }
+                else
+                {
+                    return new BirthRatios(ratio,ratio);
+                }
+            }
+            else
+            {
+                Console.WriteLine(errorMessage);
+                return AskForBirthRatio();
+            }
+        }
+
         /// <summary>
         /// Returns true if there are details to be shown
         /// </summary>

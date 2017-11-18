@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GaynessPopulationCalculator.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,44 +10,46 @@ namespace GaynessPopulationCalculator
 
     class GayNessCalculator
     {
-        public bool WritePopDetails ;
+        public bool WritePopDetails;
         public GenderPopulation Male { get; set; }
         public GenderPopulation Female { get; set; }
-        Random random;
+        Random Random;
+        BirthRatios Ratios;
 
-        public GayNessCalculator(decimal totalPopulation, bool writePopDetails)
+
+        public GayNessCalculator(decimal totalPopulation, bool writePopDetails, BirthRatios ratios)
         {
             if (totalPopulation <= 0) { throw new ArgumentException("total population cannot be less than 0"); }
             Male = new GenderPopulation(totalPopulation / 2);
             Female = new GenderPopulation(totalPopulation / 2);
             WritePopDetails = writePopDetails;
-            random = new Random();
-
+            Random = new Random();
+            Ratios = ratios;
         }
 
         public void CalculateNextGeneration()
         {
             //  Every famiily has a mean birht radio of 2.36 https://en.wikipedia.org/wiki/Total_fertility_rate
-            decimal birhtRatio = 2.36m;
-            decimal straightBirths = CalculateBirthByStraight(birhtRatio);
-            decimal lesboBirths =   CalculateBirthByLesbo(birhtRatio);
+
+            decimal straightBirths = CalculateBirthByStraight(Ratios.Straight);
+            decimal lesboBirths = CalculateBirthByLesbo(Ratios.Lesbian);
             // PURGE CURRENT POP
             Male.Purge();
             Female.Purge();
             // Calculate new population
             // 51.9 is male. https://en.wikipedia.org/wiki/Human_sex_ratio
-            decimal newMale = (decimal)Math.Round((decimal)straightBirths * (decimal)0.519);
+            decimal newMale = (decimal)Math.Round(straightBirths * 0.519m);
             decimal newFemale = straightBirths - newMale;
-            
+
             DistributeMale(newMale);
             DistributeFemale(newFemale);
 
 
-            if (WritePopDetails) { Console.WriteLine("From straight Gay Male  : {0} , Straight Male : {1}", Male.Gay,Male.Straight); }
+            if (WritePopDetails) { Console.WriteLine("From straight Gay Male  : {0} , Straight Male : {1}", Male.Gay, Male.Straight); }
             if (WritePopDetails) { Console.WriteLine("From straight Gay Female  : {0} , Straight Female : {1}", Female.Gay, Female.Straight); }
             decimal saveStateOfFemaleGay = Female.Gay;
             decimal saveStateOfFemaleStraight = Female.Straight;
-            // lesbo 50% lesbo rate, lesbo has 100% of femlae offspring.
+            // lesbo 50% lesbo rate, lesbo has 100% of female offspring.
             DistributeLesbiansBirths(lesboBirths);
 
             if (WritePopDetails) { Console.WriteLine("From lesbo Gay Female  : {0} , Straight Female : {1}", Female.Gay - saveStateOfFemaleGay, Female.Straight - saveStateOfFemaleStraight); }
@@ -97,13 +100,14 @@ namespace GaynessPopulationCalculator
             }
         }
 
-        private bool TrueOn10Percentage() {
-            return random.Next(0, 9) == 0;
+        private bool TrueOn10Percentage()
+        {
+            return Random.Next(0, 9) == 0;
         }
 
         private bool TrueOn50Percentage()
         {
-            return random.Next(0, 9) < 5;
+            return Random.Next(0, 9) < 5;
         }
         /// <summary>
         /// using the same birht ration of straight https://en.wikipedia.org/wiki/Total_fertility_rate
@@ -118,9 +122,9 @@ namespace GaynessPopulationCalculator
             }
             else
             {
-               decimal families = Female.Gay / 2;
+                decimal families = Female.Gay / 2;
                 birthnumber = (decimal)Math.Round((decimal)families * birthRatio);
-               
+
             }
             if (WritePopDetails) { Console.WriteLine("The lesbo births are : {0}", birthnumber); }
             return birthnumber;
