@@ -63,12 +63,12 @@ namespace GaynessPopulationCalculator
 
         }
 
-        private static long AskForPopulation()
+        private static decimal AskForPopulation()
         {
             Console.WriteLine("What is the initial population?");
-            long populationNum = 0;
+            decimal populationNum = 0;
             string lineRead = Console.ReadLine();
-            if (long.TryParse(lineRead, out populationNum)){
+            if (decimal.TryParse(lineRead, out populationNum)){
                 if (populationNum < 0)
                 {
                     Console.WriteLine("Invalid initial population, try again");

@@ -8,10 +8,10 @@ namespace GaynessPopulationCalculator
 {
     class GenderPopulation
     {
-        public long Gay { get; set; }
-        public long Straight { get; set; }
+        public decimal Gay { get; set; }
+        public decimal Straight { get; set; }
 
-        public GenderPopulation(long pop)
+        public GenderPopulation(decimal pop)
         {
             Gay = pop / 10;
             Straight = pop - Gay;
@@ -20,7 +20,7 @@ namespace GaynessPopulationCalculator
         /// total pupulation Gay + straight
         /// </summary>
         /// <returns></returns>
-        public long GetPop() {
+        public decimal GetPop() {
             return Gay + Straight;
         }
         /// <summary>
