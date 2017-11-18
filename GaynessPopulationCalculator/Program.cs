@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace GaynessPopulationCalculator
 {
@@ -24,13 +25,16 @@ namespace GaynessPopulationCalculator
 
         static void Main(string[] args)
         {
+            // there will be used to perform the configuration.
+
             Console.WriteLine("Hello, this is the gayness population calculator! Have a Pleasant day.");
             Console.WriteLine();
             BirthRatios birthRatios = new BirthRatios(2.36m, 2.36m);
             decimal population = AskForPopulation();
             BirthRatios birthRatio = AskForBirthRatio();
             bool answer = AskForStepByStep();
-            HomosexualityRatios homosexualityRatios = new HomosexualityRatios(0.1m, 0.1m, 0.5m);
+            HomosexualityRatios homosexualityRatios = new HomosexualityRatios(Properties.Settings.Default.ManHomosexualityRatio, Properties.Settings.Default.FemaleHomoSexualityRatio, Properties.Settings.Default.LesboToLesboRatio);
+        
 
 
             if (answer)
