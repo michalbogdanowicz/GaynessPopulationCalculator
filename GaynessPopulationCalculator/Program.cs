@@ -29,20 +29,35 @@ namespace GaynessPopulationCalculator
             BirthRatios birthRatio = AskForBirthRatio();
             bool answer = AskForStepByStep();
 
-            Console.WriteLine(printFormatString, gayMale, straigthMale, straigthFemale, gayFemale);
+         
             if (answer)
             {
-                GayNessCalculator = new GaynessCalculator(population, AskForDetails(), birthRatio);
-
-                while (true)
+                GayNessCalculator = new GaynessCalculator(population, AskForBoolean("Would you like to display details? (Y/N)"), birthRatio);
+                ShowHeader();
+         
+                bool keepGoing = true;
+                while (keepGoing)
                 {
                     Console.WriteLine(printFormatString, GayNessCalculator.Male.Gay, GayNessCalculator.Male.Straight, GayNessCalculator.Female.Straight, GayNessCalculator.Female.Gay);
-                    Console.ReadLine();
-                    GayNessCalculator.CalculateNextGeneration();
+                    if ((GayNessCalculator.Male.Straight == 0 || GayNessCalculator.Female.Straight == 0) && GayNessCalculator.Female.Gay == 0)
+                    {
+                        Console.WriteLine("Seems like your population has died out!");
+                        keepGoing = false;
+                        Console.WriteLine("Press Enter to Exit..");
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.ReadLine();
+                        GayNessCalculator.CalculateNextGeneration();
+                    }
+
+
                 }
             }
             else
             {
+                ShowHeader();
                 bool wantToConinue = true;
                 GayNessCalculator = new GaynessCalculator(population, false, birthRatio);
                 Console.WriteLine("{0, -50 }", "Starting state");
@@ -51,7 +66,6 @@ namespace GaynessPopulationCalculator
                 while (wantToConinue)
                 {
                     long steps = AskForHowManySteps();
-
                   
                     for (long i = 0; i < steps; i++)
                     {
@@ -66,6 +80,11 @@ namespace GaynessPopulationCalculator
                 Console.WriteLine("Press Enter to exit...");
                 Console.ReadLine();
             }
+        }
+
+        private static void ShowHeader()
+        {
+            Console.WriteLine(printFormatString, gayMale, straigthMale, straigthFemale, gayFemale);
         }
 
         private static long AskForHowManySteps()
@@ -148,36 +167,6 @@ namespace GaynessPopulationCalculator
                 Console.WriteLine(errorMessage);
                 return AskForBirthRatio();
             }
-        }
-
-        /// <summary>
-        /// Returns true if there are details to be shown
-        /// </summary>
-        /// <returns></returns>
-        private static bool AskForDetails()
-        {
-            Console.WriteLine("Would you like to display details? (Y/N)");
-            string reponse = Console.ReadLine();
-            if (reponse == null || reponse.Count() == 0)
-            {
-                Console.WriteLine("Invalid answer, taken as a no!");
-                return false;
-            }
-            else
-            {
-                char firstchar = reponse.First();
-                if (firstchar == 'y' || firstchar == 'Y')
-                {
-                    return true;
-                }
-                else if (firstchar == 'n' || firstchar == 'N')
-                {
-                    return false;
-                }
-                Console.WriteLine("Invalid answer, taken as a no!");
-                return false;
-            }
-
         }
 
         private static bool AskForBoolean(string message) {
