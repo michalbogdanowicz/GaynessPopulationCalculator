@@ -33,15 +33,17 @@ namespace GaynessPopulationCalculator
             decimal population = AskForPopulation();
             BirthRatios birthRatio = AskForBirthRatio();
             bool answer = AskForStepByStep();
-            HomosexualityRatios homosexualityRatios = new HomosexualityRatios(Properties.Settings.Default.ManHomosexualityRatio, Properties.Settings.Default.FemaleHomoSexualityRatio, Properties.Settings.Default.LesboToLesboRatio);
-        
+            HomosexualityRatios homosexualityRatios = new HomosexualityRatios(Properties.Settings.Default.ManHomosexualityRatio,
+                                                                              Properties.Settings.Default.FemaleHomoSexualityRatio,
+                                                                              Properties.Settings.Default.LesboToLesboRatio);
+
 
 
             if (answer)
             {
-                GayNessCalculator = new PopulationCalculator(population, AskForBoolean("Would you like to display details? (Y/N)"), birthRatio,  homosexualityRatios);
+                GayNessCalculator = new PopulationCalculator(population, AskForBoolean("Would you like to display details? (Y/N)"), birthRatio, homosexualityRatios);
                 ShowHeader();
-         
+
                 bool keepGoing = true;
                 while (keepGoing)
                 {
@@ -73,7 +75,7 @@ namespace GaynessPopulationCalculator
                 while (wantToConinue)
                 {
                     long steps = AskForHowManySteps();
-                  
+
                     for (long i = 0; i < steps; i++)
                     {
                         GayNessCalculator.CalculateNextGeneration();
@@ -81,7 +83,7 @@ namespace GaynessPopulationCalculator
                     Console.WriteLine("{0, -50 }", String.Format("Results after {0} iterations ", steps));
                     Console.WriteLine(printFormatString, GayNessCalculator.Male.Gay, GayNessCalculator.Male.Straight, GayNessCalculator.Female.Straight, GayNessCalculator.Female.Gay);
                     Console.WriteLine();
-                  wantToConinue =  AskForBoolean("Would You like to keep on going? (Y/N)");
+                    wantToConinue = AskForBoolean("Would You like to keep on going? (Y/N)");
                 }
                 Console.WriteLine("Thank you, come back again!");
                 Console.WriteLine("Press Enter to exit...");
@@ -176,7 +178,8 @@ namespace GaynessPopulationCalculator
             }
         }
 
-        private static bool AskForBoolean(string message) {
+        private static bool AskForBoolean(string message)
+        {
             Console.WriteLine(message);
             string reponse = Console.ReadLine();
             if (reponse == null || reponse.Count() == 0)
