@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GaynessPopulationCalculator.Model
 {
+    /// <summary>
+    /// Contains the ratios of male/femalre birth for Straight and Lesbian.
+    /// </summary>
     public class BirthRatios
     {
         public decimal Straight { get; set; }

@@ -18,23 +18,94 @@ namespace GaynessPopulationCalculator
         // the formatting! https://docs.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting
         // and https://stackoverflow.com/questions/8724861/console-write-syntax-what-does-the-format-string-0-25-mean
         //Console.WriteLine("[{0, -25
+      private static  GayNessCalculator GayNessCalculator;
 
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, this is the gayness population calculator! Have a Pleasant day.");
             Console.WriteLine();
             BirthRatios birthRatios = new BirthRatios(2.36m, 2.36m);
-            GayNessCalculator gayNessCalculator = new GayNessCalculator(AskForPopulation(), AskForDetails(), AskForBirthRatio());
-            Console.WriteLine("Press enter to go on with a generation");
-            Console.WriteLine(printFormatString, gayMale,straigthMale,straigthFemale, gayFemale);
-           
-            while (true)
+          decimal population =  AskForPopulation();
+            BirthRatios birthRatio = AskForBirthRatio();
+            bool answer = AskForStepByStep();
+
+            Console.WriteLine(printFormatString, gayMale, straigthMale, straigthFemale, gayFemale);
+            if (answer)
             {
-                Console.WriteLine(printFormatString, gayNessCalculator.Male.Gay, gayNessCalculator.Male.Straight, gayNessCalculator.Female.Straight, gayNessCalculator.Female.Gay);
-                Console.ReadLine(); 
-                gayNessCalculator.CalculateNextGeneration();
+                GayNessCalculator = new GayNessCalculator(population, AskForDetails(), birthRatio);
+             
+                while (true)
+                {
+                    Console.WriteLine(printFormatString, GayNessCalculator.Male.Gay, GayNessCalculator.Male.Straight, GayNessCalculator.Female.Straight, GayNessCalculator.Female.Gay);
+                    Console.ReadLine();
+                    GayNessCalculator.CalculateNextGeneration();
+                }
+            }
+            else
+            {
+                GayNessCalculator = new GayNessCalculator(population, false, birthRatio);
+                long steps = AskForHowManySteps();
+                Console.WriteLine("{0, -50 }","Starting state");
+
+                Console.WriteLine(printFormatString, GayNessCalculator.Male.Gay, GayNessCalculator.Male.Straight, GayNessCalculator.Female.Straight, GayNessCalculator.Female.Gay);
+             
+                for (long i = 0; i < steps; i++)
+                {
+                    GayNessCalculator.CalculateNextGeneration();
+                }
+                Console.WriteLine("{0, -50 }", String.Format("Results after {0} iterations ",steps));
+                Console.WriteLine(printFormatString, GayNessCalculator.Male.Gay, GayNessCalculator.Male.Straight, GayNessCalculator.Female.Straight, GayNessCalculator.Female.Gay);
+                Console.WriteLine();
+                Console.WriteLine("Press Enter to exit");
+                Console.ReadLine();
+                
+            }
+        }
+
+        private static long AskForHowManySteps()
+        {
+            Console.WriteLine("Please specify the amount of steps");
+            string input = Console.ReadLine();
+            if (input == null || input.Count() == 0)
+            {
+                Console.WriteLine("Invalid Input");
+                return AskForHowManySteps();
             }
 
+            long steps;
+            if (long.TryParse(input, out steps)) {
+                return steps;
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input");
+                return AskForHowManySteps();
+            }
+        }
+
+        private static bool AskForStepByStep()
+        {
+            Console.WriteLine("Would you like to see immediately the result of multiple generatios (G), or go step by step by pressing enter(M) ?");
+            string input = Console.ReadLine();
+            if (input == null || input.Count() == 0)
+            {
+                Console.WriteLine("Invalid Input");
+                return AskForStepByStep();
+
+            }
+            var firstchar = input.First();
+            if (firstchar == 'g' || firstchar == 'G')
+            {
+                return false;
+            }
+            else if (firstchar == 'm' || firstchar == 'M')
+            {
+                return true;
+            }
+            else {
+                Console.WriteLine("Invalid Input");
+                return AskForStepByStep();
+            }
         }
 
         private static BirthRatios AskForBirthRatio()
@@ -61,7 +132,7 @@ namespace GaynessPopulationCalculator
                 }
                 else
                 {
-                    return new BirthRatios(ratio,ratio);
+                    return new BirthRatios(ratio, ratio);
                 }
             }
             else
@@ -78,7 +149,7 @@ namespace GaynessPopulationCalculator
         private static bool AskForDetails()
         {
             Console.WriteLine("Would you like to display details? (Y/N)");
-           string reponse =   Console.ReadLine();
+            string reponse = Console.ReadLine();
             if (reponse == null || reponse.Count() == 0)
             {
                 Console.WriteLine("Invalid answer, taken as a no!");
@@ -86,7 +157,7 @@ namespace GaynessPopulationCalculator
             }
             else
             {
-             char firstchar =   reponse.First();
+                char firstchar = reponse.First();
                 if (firstchar == 'y' || firstchar == 'Y')
                 {
                     return true;
@@ -106,7 +177,8 @@ namespace GaynessPopulationCalculator
             Console.WriteLine("What is the initial population?");
             decimal populationNum = 0;
             string lineRead = Console.ReadLine();
-            if (decimal.TryParse(lineRead, out populationNum)){
+            if (decimal.TryParse(lineRead, out populationNum))
+            {
                 if (populationNum < 0)
                 {
                     Console.WriteLine("Invalid initial population, try again");
@@ -114,10 +186,11 @@ namespace GaynessPopulationCalculator
                 }
                 else
                 {
-                    return populationNum;
+                    return Math.Round(populationNum);
                 }
             }
-            else {
+            else
+            {
                 Console.WriteLine("Invalid initial population, try again");
                 return AskForPopulation();
             }
