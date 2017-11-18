@@ -15,17 +15,20 @@ namespace GaynessPopulationCalculator
         public GenderPopulation Male { get; set; }
         public GenderPopulation Female { get; set; }
         Random Random;
-        BirthRatios Ratios;
+        BirthRatios BirthRatios;
         PercentageProvider PercentageProvider10;
         PercentageProvider PercentageProvider50;
+        decimal manToWomanRatio = 0.519m;
+        decimal homosexualityRatio = 0.10m;
         public GayNessCalculator(decimal totalPopulation, bool writePopDetails, BirthRatios ratios)
         {
             if (totalPopulation <= 0) { throw new ArgumentException("total population cannot be less than 0"); }
-            Male = new GenderPopulation(totalPopulation / 2);
-            Female = new GenderPopulation(totalPopulation / 2);
+            
+            Male = new GenderPopulation(Math.Round(totalPopulation * manToWomanRatio), homosexualityRatio);
+            Female = new GenderPopulation(totalPopulation - Male.GetPop(), homosexualityRatio);
             WritePopDetails = writePopDetails;
             Random = new Random();
-            Ratios = ratios;
+            BirthRatios = ratios;
             PercentageProvider10 = new PercentageProvider(10);
             PercentageProvider50 = new PercentageProvider(50);
         }
@@ -34,14 +37,14 @@ namespace GaynessPopulationCalculator
         {
             //  Every famiily has a mean birht radio of 2.36 https://en.wikipedia.org/wiki/Total_fertility_rate
 
-            decimal straightBirths = CalculateBirthByStraight(Ratios.Straight);
-            decimal lesboBirths = CalculateBirthByLesbo(Ratios.Lesbian);
+            decimal straightBirths = CalculateBirthByStraight(BirthRatios.Straight);
+            decimal lesboBirths = CalculateBirthByLesbo(BirthRatios.Lesbian);
             // PURGE CURRENT POP
             Male.Purge();
             Female.Purge();
             // Calculate new population
             // 51.9 is male. https://en.wikipedia.org/wiki/Human_sex_ratio
-            decimal newMale = (decimal)Math.Round(straightBirths * 0.519m);
+            decimal newMale = Math.Round(straightBirths * manToWomanRatio);
             decimal newFemale = straightBirths - newMale;
 
             DistributeMale(newMale);

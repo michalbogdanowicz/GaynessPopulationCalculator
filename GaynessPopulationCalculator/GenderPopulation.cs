@@ -10,10 +10,11 @@ namespace GaynessPopulationCalculator
     {
         public decimal Gay { get; set; }
         public decimal Straight { get; set; }
+        decimal ratio;
 
-        public GenderPopulation(decimal pop)
+        public GenderPopulation(decimal pop, decimal ratio)
         {
-            Gay = pop / 10;
+            Gay = Math.Round(pop * ratio);
             Straight = pop - Gay;
         }
         /// <summary>
