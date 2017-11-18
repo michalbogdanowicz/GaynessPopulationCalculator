@@ -24,7 +24,7 @@ namespace GaynessPopulationBusiness
         public PopulationCalculator(decimal totalPopulation, bool writePopDetails, BirthRatios ratios)
         {
             if (totalPopulation <= 0) { throw new ArgumentException("total population cannot be less than 0"); }
-            
+
             Male = new GenderPopulation(Math.Round(totalPopulation * manToWomanRatio), homosexualityRatio);
             Female = new GenderPopulation(totalPopulation - Male.GetPop(), homosexualityRatio);
             WritePopDetails = writePopDetails;
@@ -64,50 +64,81 @@ namespace GaynessPopulationBusiness
 
         private void DistributeLesbiansBirths(decimal lesboBirths)
         {
-            for (int i = 0; i < lesboBirths; i++)
+            if (lesboBirths > 10)
             {
-                if (PercentageProvider50.DoesHit())
+                decimal newGay = Math.Round(lesboBirths / 2);
+                decimal newStraight = lesboBirths - newGay;
+                Female.Gay += newGay;
+                Female.Straight += newStraight;
+            }
+            else
+            {
+                // give them a chance...
+                for (int i = 0; i < lesboBirths; i++)
                 {
-                    Female.Gay++;
-                }
-                else
-                {
-                    Female.Straight++;
+                    if (PercentageProvider50.DoesHit())
+                    {
+                        Female.Gay++;
+                    }
+                    else
+                    {
+                        Female.Straight++;
+                    }
                 }
             }
         }
 
         private void DistributeFemale(decimal newFemale)
         {
-            for (int i = 0; i < newFemale; i++)
+            if (newFemale > 10)
             {
-                if (PercentageProvider10.DoesHit())
+                decimal newGay = Math.Round(newFemale * 0.1m);
+                decimal newStraight = newFemale - newGay;
+                Female.Gay += newGay;
+                Female.Straight += newStraight;
+            }
+            else
+            {
+                for (int i = 0; i < newFemale; i++)
                 {
-                    Female.Gay++;
-                }
-                else
-                {
-                    Female.Straight++;
+                    if (PercentageProvider10.DoesHit())
+                    {
+                        Female.Gay++;
+                    }
+                    else
+                    {
+                        Female.Straight++;
+                    }
                 }
             }
         }
 
         private void DistributeMale(decimal newMale)
         {
-            for (int i = 0; i < newMale; i++)
+            if (newMale > 10)
             {
-                if (PercentageProvider10.DoesHit())
+                decimal newGay = Math.Round(newMale * 0.1m);
+                decimal newStraight = newMale - newGay;
+                Male.Gay += newGay;
+                Male.Straight += newStraight;
+            }
+            else
+            {
+                for (int i = 0; i < newMale; i++)
                 {
-                    Male.Gay++;
-                }
-                else
-                {
-                    Male.Straight++;
+                    if (PercentageProvider10.DoesHit())
+                    {
+                        Male.Gay++;
+                    }
+                    else
+                    {
+                        Male.Straight++;
+                    }
                 }
             }
         }
 
-    
+
         /// <summary>
         /// using the same birht ration of straight https://en.wikipedia.org/wiki/Total_fertility_rate
         /// </summary>
@@ -121,7 +152,7 @@ namespace GaynessPopulationBusiness
             }
             else
             {
-                decimal families = Female.Gay / 2;
+                decimal families = Math.Round(Female.Gay / 2);
                 birthnumber = (decimal)Math.Round((decimal)families * birthRatio);
 
             }
