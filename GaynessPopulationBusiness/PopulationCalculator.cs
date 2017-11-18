@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace GaynessPopulationBusiness
 {
 
-    public class GaynessCalculator
+    public class PopulationCalculator
     {
         public bool WritePopDetails;
         public GenderPopulation Male { get; set; }
@@ -21,7 +21,7 @@ namespace GaynessPopulationBusiness
         PercentageProvider PercentageProvider50;
         decimal manToWomanRatio = 0.519m;
         decimal homosexualityRatio = 0.10m;
-        public GaynessCalculator(decimal totalPopulation, bool writePopDetails, BirthRatios ratios)
+        public PopulationCalculator(decimal totalPopulation, bool writePopDetails, BirthRatios ratios)
         {
             if (totalPopulation <= 0) { throw new ArgumentException("total population cannot be less than 0"); }
             

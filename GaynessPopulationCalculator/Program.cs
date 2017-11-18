@@ -20,7 +20,7 @@ namespace GaynessPopulationCalculator
         // the formatting! https://docs.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting
         // and https://stackoverflow.com/questions/8724861/console-write-syntax-what-does-the-format-string-0-25-mean
         //Console.WriteLine("[{0, -25
-        private static GaynessCalculator GayNessCalculator;
+        private static PopulationCalculator GayNessCalculator;
 
         static void Main(string[] args)
         {
@@ -34,7 +34,7 @@ namespace GaynessPopulationCalculator
          
             if (answer)
             {
-                GayNessCalculator = new GaynessCalculator(population, AskForBoolean("Would you like to display details? (Y/N)"), birthRatio);
+                GayNessCalculator = new PopulationCalculator(population, AskForBoolean("Would you like to display details? (Y/N)"), birthRatio);
                 ShowHeader();
          
                 bool keepGoing = true;
@@ -61,7 +61,7 @@ namespace GaynessPopulationCalculator
             {
                 ShowHeader();
                 bool wantToConinue = true;
-                GayNessCalculator = new GaynessCalculator(population, false, birthRatio);
+                GayNessCalculator = new PopulationCalculator(population, false, birthRatio);
                 Console.WriteLine("{0, -50 }", "Starting state");
                 Console.WriteLine(printFormatString, GayNessCalculator.Male.Gay, GayNessCalculator.Male.Straight, GayNessCalculator.Female.Straight, GayNessCalculator.Female.Gay);
 
