@@ -17,27 +17,32 @@ namespace GaynessPopulationBusiness
         public GenderPopulation Female { get; set; }
         Random Random;
         BirthRatios BirthRatios;
-        PercentageProvider PercentageProvider10;
-        PercentageProvider PercentageProvider50;
+        PercentageProvider MaleHomoercentageProvider;
+        PercentageProvider LesbianPercentageProvider;
+        /// <summary>
+        /// Provider for women born from straight couples.
+        /// </summary>
+        PercentageProvider FemalePercentageProvider;
         decimal manToWomanRatio = 0.519m;
-        decimal homosexualityRatio = 0.10m;
-        public PopulationCalculator(decimal totalPopulation, bool writePopDetails, BirthRatios ratios)
+        HomosexualityRatios HomosexualityRatios;
+
+
+        public PopulationCalculator(decimal totalPopulation, bool writePopDetails, BirthRatios ratios, HomosexualityRatios homosexualityRatios)
         {
             if (totalPopulation <= 0) { throw new ArgumentException("total population cannot be less than 0"); }
-
-            Male = new GenderPopulation(Math.Round(totalPopulation * manToWomanRatio), homosexualityRatio);
-            Female = new GenderPopulation(totalPopulation - Male.GetPop(), homosexualityRatio);
+            HomosexualityRatios = homosexualityRatios;
+            Male = new GenderPopulation(Math.Round(totalPopulation * manToWomanRatio), homosexualityRatios.ManHomosexualityRatio);
+            Female = new GenderPopulation(totalPopulation - Male.GetPop(), homosexualityRatios.FemaleHomoSexualityRatio);
             WritePopDetails = writePopDetails;
             Random = new Random();
             BirthRatios = ratios;
-            PercentageProvider10 = new PercentageProvider(10);
-            PercentageProvider50 = new PercentageProvider(50);
+            MaleHomoercentageProvider = new PercentageProvider(homosexualityRatios.ManHomosexualityRatio);
+            LesbianPercentageProvider = new PercentageProvider(homosexualityRatios.LesboToLesboRatio);
+            FemalePercentageProvider = new PercentageProvider(homosexualityRatios.FemaleHomoSexualityRatio);
         }
 
         public void CalculateNextGeneration()
         {
-            //  Every famiily has a mean birht radio of 2.36 https://en.wikipedia.org/wiki/Total_fertility_rate
-
             decimal straightBirths = CalculateBirthByStraight(BirthRatios.Straight);
             decimal lesboBirths = CalculateBirthByLesbo(BirthRatios.Lesbian);
             // PURGE CURRENT POP
@@ -76,7 +81,7 @@ namespace GaynessPopulationBusiness
                 // give them a chance...
                 for (int i = 0; i < lesboBirths; i++)
                 {
-                    if (PercentageProvider50.DoesHit())
+                    if (LesbianPercentageProvider.DoesHit())
                     {
                         Female.Gay++;
                     }
@@ -101,7 +106,7 @@ namespace GaynessPopulationBusiness
             {
                 for (int i = 0; i < newFemale; i++)
                 {
-                    if (PercentageProvider10.DoesHit())
+                    if (FemalePercentageProvider.DoesHit())
                     {
                         Female.Gay++;
                     }
@@ -126,7 +131,7 @@ namespace GaynessPopulationBusiness
             {
                 for (int i = 0; i < newMale; i++)
                 {
-                    if (PercentageProvider10.DoesHit())
+                    if (MaleHomoercentageProvider.DoesHit())
                     {
                         Male.Gay++;
                     }

@@ -7,8 +7,8 @@
     <ProjectGuid>{B826909C-E0DA-4722-889D-163FC7141BC3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GaynePopulationBusiness</RootNamespace>
-    <AssemblyName>GaynePopulationBusiness</AssemblyName>
+    <RootNamespace>GaynessPopulationBusiness</RootNamespace>
+    <AssemblyName>GaynessPopulationBusiness</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\HomosexualityRatios.cs" />
     <Compile Include="PopulationCalculator.cs" />
     <Compile Include="GenderPopulation.cs" />
     <Compile Include="Helpers\PercentageProvider.cs" />

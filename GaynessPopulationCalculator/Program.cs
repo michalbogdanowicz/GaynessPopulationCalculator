@@ -30,11 +30,12 @@ namespace GaynessPopulationCalculator
             decimal population = AskForPopulation();
             BirthRatios birthRatio = AskForBirthRatio();
             bool answer = AskForStepByStep();
+            HomosexualityRatios homosexualityRatios = new HomosexualityRatios(0.1m, 0.1m, 0.5m);
 
-         
+
             if (answer)
             {
-                GayNessCalculator = new PopulationCalculator(population, AskForBoolean("Would you like to display details? (Y/N)"), birthRatio);
+                GayNessCalculator = new PopulationCalculator(population, AskForBoolean("Would you like to display details? (Y/N)"), birthRatio,  homosexualityRatios);
                 ShowHeader();
          
                 bool keepGoing = true;
@@ -61,7 +62,7 @@ namespace GaynessPopulationCalculator
             {
                 ShowHeader();
                 bool wantToConinue = true;
-                GayNessCalculator = new PopulationCalculator(population, false, birthRatio);
+                GayNessCalculator = new PopulationCalculator(population, false, birthRatio, homosexualityRatios);
                 Console.WriteLine("{0, -50 }", "Starting state");
                 Console.WriteLine(printFormatString, GayNessCalculator.Male.Gay, GayNessCalculator.Male.Straight, GayNessCalculator.Female.Straight, GayNessCalculator.Female.Gay);
 
