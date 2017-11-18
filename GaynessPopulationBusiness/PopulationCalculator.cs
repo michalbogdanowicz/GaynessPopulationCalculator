@@ -64,7 +64,7 @@ namespace GaynessPopulationBusiness
 
         private void DistributeLesbiansBirths(decimal lesboBirths)
         {
-            if (lesboBirths > 10)
+            if (lesboBirths > 100)
             {
                 decimal newGay = Math.Round(lesboBirths / 2);
                 decimal newStraight = lesboBirths - newGay;
@@ -90,7 +90,7 @@ namespace GaynessPopulationBusiness
 
         private void DistributeFemale(decimal newFemale)
         {
-            if (newFemale > 10)
+            if (newFemale > 100)
             {
                 decimal newGay = Math.Round(newFemale * 0.1m);
                 decimal newStraight = newFemale - newGay;
@@ -115,7 +115,7 @@ namespace GaynessPopulationBusiness
 
         private void DistributeMale(decimal newMale)
         {
-            if (newMale > 10)
+            if (newMale > 100)
             {
                 decimal newGay = Math.Round(newMale * 0.1m);
                 decimal newStraight = newMale - newGay;
