@@ -50,12 +50,12 @@ namespace GaynessPopulationCalculator
 
             if (WritePopDetails) { Console.WriteLine("From straight Gay Male  : {0} , Straight Male : {1}", Male.Gay, Male.Straight); }
             if (WritePopDetails) { Console.WriteLine("From straight Gay Female  : {0} , Straight Female : {1}", Female.Gay, Female.Straight); }
-            decimal saveStateOfFemaleGay = Female.Gay;
-            decimal saveStateOfFemaleStraight = Female.Straight;
+            decimal savedStateOfFemaleGay = Female.Gay;
+            decimal savedStateOfFemaleStraight = Female.Straight;
             // lesbo 50% lesbo rate, lesbo has 100% of female offspring.
             DistributeLesbiansBirths(lesboBirths);
 
-            if (WritePopDetails) { Console.WriteLine("From lesbo Gay Female  : {0} , Straight Female : {1}", Female.Gay - saveStateOfFemaleGay, Female.Straight - saveStateOfFemaleStraight); }
+            if (WritePopDetails) { Console.WriteLine("From lesbo Gay Female  : {0} , Straight Female : {1}", Female.Gay - savedStateOfFemaleGay, Female.Straight - savedStateOfFemaleStraight); }
         }
 
         private void DistributeLesbiansBirths(decimal lesboBirths)
