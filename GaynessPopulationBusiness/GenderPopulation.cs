@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GaynessPopulationCalculator
+namespace GaynessPopulationBusiness
 {
-    class GenderPopulation
+   public class GenderPopulation
     {
         public decimal Gay { get; set; }
         public decimal Straight { get; set; }
-        decimal ratio;
 
         public GenderPopulation(decimal pop, decimal ratio)
         {

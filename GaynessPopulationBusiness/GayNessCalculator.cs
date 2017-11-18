@@ -1,15 +1,16 @@
-﻿using GaynessPopulationCalculator.Helpers;
-using GaynessPopulationCalculator.Model;
+﻿
+using GaynessPopulationBusiness.Helpers;
+using GaynessPopulationBusiness.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GaynessPopulationCalculator
+namespace GaynessPopulationBusiness
 {
 
-    class GaynessCalculator
+    public class GaynessCalculator
     {
         public bool WritePopDetails;
         public GenderPopulation Male { get; set; }

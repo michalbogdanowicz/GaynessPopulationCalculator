@@ -1,4 +1,6 @@
-﻿using GaynessPopulationCalculator.Model;
+﻿
+using GaynessPopulationBusiness;
+using GaynessPopulationBusiness.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

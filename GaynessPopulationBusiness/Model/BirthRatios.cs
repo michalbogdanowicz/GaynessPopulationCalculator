@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GaynessPopulationCalculator.Model
+namespace GaynessPopulationBusiness.Model
 {
     /// <summary>
     /// Contains the ratios of male/femalre birth for Straight and Lesbian.
