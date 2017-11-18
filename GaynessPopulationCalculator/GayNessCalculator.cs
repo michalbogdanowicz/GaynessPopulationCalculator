@@ -1,4 +1,5 @@
-﻿using GaynessPopulationCalculator.Model;
+﻿using GaynessPopulationCalculator.Helpers;
+using GaynessPopulationCalculator.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace GaynessPopulationCalculator
         public GenderPopulation Female { get; set; }
         Random Random;
         BirthRatios Ratios;
-
-
+        PercentageProvider PercentageProvider10;
+        PercentageProvider PercentageProvider50;
         public GayNessCalculator(decimal totalPopulation, bool writePopDetails, BirthRatios ratios)
         {
             if (totalPopulation <= 0) { throw new ArgumentException("total population cannot be less than 0"); }
@@ -25,6 +26,8 @@ namespace GaynessPopulationCalculator
             WritePopDetails = writePopDetails;
             Random = new Random();
             Ratios = ratios;
+            PercentageProvider10 = new PercentageProvider(10);
+            PercentageProvider50 = new PercentageProvider(50);
         }
 
         public void CalculateNextGeneration()
@@ -59,7 +62,7 @@ namespace GaynessPopulationCalculator
         {
             for (int i = 0; i < lesboBirths; i++)
             {
-                if (TrueOn50Percentage())
+                if (PercentageProvider50.DoesHit())
                 {
                     Female.Gay++;
                 }
@@ -74,7 +77,7 @@ namespace GaynessPopulationCalculator
         {
             for (int i = 0; i < newFemale; i++)
             {
-                if (TrueOn10Percentage())
+                if (PercentageProvider10.DoesHit())
                 {
                     Female.Gay++;
                 }
@@ -89,7 +92,7 @@ namespace GaynessPopulationCalculator
         {
             for (int i = 0; i < newMale; i++)
             {
-                if (TrueOn10Percentage())
+                if (PercentageProvider10.DoesHit())
                 {
                     Male.Gay++;
                 }
@@ -100,15 +103,7 @@ namespace GaynessPopulationCalculator
             }
         }
 
-        private bool TrueOn10Percentage()
-        {
-            return Random.Next(0, 9) == 0;
-        }
-
-        private bool TrueOn50Percentage()
-        {
-            return Random.Next(0, 9) < 5;
-        }
+    
         /// <summary>
         /// using the same birht ration of straight https://en.wikipedia.org/wiki/Total_fertility_rate
         /// </summary>

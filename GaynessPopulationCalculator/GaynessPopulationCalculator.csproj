@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="GayNessCalculator.cs" />
     <Compile Include="GenderPopulation.cs" />
+    <Compile Include="Helpers\PercentageProvider.cs" />
     <Compile Include="Model\BirthRatios.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
