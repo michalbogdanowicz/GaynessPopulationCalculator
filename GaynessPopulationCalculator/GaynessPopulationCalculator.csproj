@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GayNessCalculator.cs" />
+    <Compile Include="GaynessCalculator.cs" />
     <Compile Include="GenderPopulation.cs" />
     <Compile Include="Helpers\PercentageProvider.cs" />
     <Compile Include="Model\BirthRatios.cs" />

@@ -18,7 +18,7 @@ namespace GaynessPopulationCalculator
         // the formatting! https://docs.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting
         // and https://stackoverflow.com/questions/8724861/console-write-syntax-what-does-the-format-string-0-25-mean
         //Console.WriteLine("[{0, -25
-        private static GayNessCalculator GayNessCalculator;
+        private static GaynessCalculator GayNessCalculator;
 
         static void Main(string[] args)
         {
@@ -32,7 +32,7 @@ namespace GaynessPopulationCalculator
             Console.WriteLine(printFormatString, gayMale, straigthMale, straigthFemale, gayFemale);
             if (answer)
             {
-                GayNessCalculator = new GayNessCalculator(population, AskForDetails(), birthRatio);
+                GayNessCalculator = new GaynessCalculator(population, AskForDetails(), birthRatio);
 
                 while (true)
                 {
@@ -43,22 +43,28 @@ namespace GaynessPopulationCalculator
             }
             else
             {
-                GayNessCalculator = new GayNessCalculator(population, false, birthRatio);
-                long steps = AskForHowManySteps();
+                bool wantToConinue = true;
+                GayNessCalculator = new GaynessCalculator(population, false, birthRatio);
                 Console.WriteLine("{0, -50 }", "Starting state");
-
                 Console.WriteLine(printFormatString, GayNessCalculator.Male.Gay, GayNessCalculator.Male.Straight, GayNessCalculator.Female.Straight, GayNessCalculator.Female.Gay);
 
-                for (long i = 0; i < steps; i++)
+                while (wantToConinue)
                 {
-                    GayNessCalculator.CalculateNextGeneration();
-                }
-                Console.WriteLine("{0, -50 }", String.Format("Results after {0} iterations ", steps));
-                Console.WriteLine(printFormatString, GayNessCalculator.Male.Gay, GayNessCalculator.Male.Straight, GayNessCalculator.Female.Straight, GayNessCalculator.Female.Gay);
-                Console.WriteLine();
-                Console.WriteLine("Press Enter to exit");
-                Console.ReadLine();
+                    long steps = AskForHowManySteps();
 
+                  
+                    for (long i = 0; i < steps; i++)
+                    {
+                        GayNessCalculator.CalculateNextGeneration();
+                    }
+                    Console.WriteLine("{0, -50 }", String.Format("Results after {0} iterations ", steps));
+                    Console.WriteLine(printFormatString, GayNessCalculator.Male.Gay, GayNessCalculator.Male.Straight, GayNessCalculator.Female.Straight, GayNessCalculator.Female.Gay);
+                    Console.WriteLine();
+                  wantToConinue =  AskForBoolean("Would You like to keep on going? (Y/N)");
+                }
+                Console.WriteLine("Thank you, come back again!");
+                Console.WriteLine("Press Enter to exit...");
+                Console.ReadLine();
             }
         }
 
@@ -172,6 +178,30 @@ namespace GaynessPopulationCalculator
                 return false;
             }
 
+        }
+
+        private static bool AskForBoolean(string message) {
+            Console.WriteLine(message);
+            string reponse = Console.ReadLine();
+            if (reponse == null || reponse.Count() == 0)
+            {
+                Console.WriteLine("Invalid answer, taken as a no!");
+                return false;
+            }
+            else
+            {
+                char firstchar = reponse.First();
+                if (firstchar == 'y' || firstchar == 'Y')
+                {
+                    return true;
+                }
+                else if (firstchar == 'n' || firstchar == 'N')
+                {
+                    return false;
+                }
+                Console.WriteLine("Invalid answer, taken as a no!");
+                return false;
+            }
         }
 
         private static decimal AskForPopulation()
