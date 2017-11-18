@@ -11,7 +11,8 @@ namespace GaynessPopulationCalculator
         /// <summary>
         /// Stable means that from two human beings make two other human beings.
         /// </summary>
-        Stable = 0
+        Stable = 0,
+        Growing = 1
     }
 
 
@@ -20,6 +21,7 @@ namespace GaynessPopulationCalculator
         public bool WritePopDetails ;
         public GenderPopulation Male { get; set; }
         public GenderPopulation Female { get; set; }
+        Random random;
 
         public GayNessCalculator(long totalPopulation, bool writePopDetails)
         {
@@ -27,6 +29,7 @@ namespace GaynessPopulationCalculator
             Male = new GenderPopulation(totalPopulation / 2);
             Female = new GenderPopulation(totalPopulation / 2);
             WritePopDetails = writePopDetails;
+            random = new Random();
 
         }
 
@@ -40,21 +43,76 @@ namespace GaynessPopulationCalculator
             Male.Purge();
             Female.Purge();
             // Calculate new population
-            // half are male, half are female
-            long newMale = straightBirths / 2;
-            long newFemale = newMale;
-          
-            Male.Gay = newMale / 10;
-            Male.Straight = newMale - Male.Gay;
-            Female.Gay = newFemale / 10;
-            Female.Straight = newFemale - Female.Gay;
+            // 51.9 is male. https://en.wikipedia.org/wiki/Human_sex_ratio
+            long newMale = (long)Math.Round((decimal)straightBirths * (decimal)0.519);
+            long newFemale = straightBirths - newMale;
+            
+            DistributeMale(newMale);
+            DistributeFemale(newFemale);
+
+
             if (WritePopDetails) { Console.WriteLine("From straight Gay Male  : {0} , Straight Male : {1}", Male.Gay,Male.Straight); }
             if (WritePopDetails) { Console.WriteLine("From straight Gay Female  : {0} , Straight Female : {1}", Female.Gay, Female.Straight); }
-            // lesbo 50% lesbo rate
-            long halfLesbo = lesboBirths / 2;
-            Female.Gay += halfLesbo;
-            Female.Straight += halfLesbo;
+
+            // lesbo 50% lesbo rate, lesbo has 100% of femlae offspring.
+            DistributeLesbiansBirths(lesboBirths);
+
+        
             if (WritePopDetails) { Console.WriteLine("From lesbo Gay Female  : {0} , Straight Female : {1}", Female.Gay, Female.Straight); }
+        }
+
+        private void DistributeLesbiansBirths(long lesboBirths)
+        {
+            for (int i = 0; i < lesboBirths; i++)
+            {
+                if (TrueOn50Percentage())
+                {
+                    Female.Gay++;
+                }
+                else
+                {
+                    Female.Straight++;
+                }
+            }
+        }
+
+        private void DistributeFemale(long newFemale)
+        {
+            for (int i = 0; i < newFemale; i++)
+            {
+                if (TrueOn10Percentage())
+                {
+                    Female.Gay++;
+                }
+                else
+                {
+                    Female.Straight++;
+                }
+            }
+        }
+
+        private void DistributeMale(long newMale)
+        {
+            for (int i = 0; i < newMale; i++)
+            {
+                if (TrueOn10Percentage())
+                {
+                    Male.Gay++;
+                }
+                else
+                {
+                    Male.Straight++;
+                }
+            }
+        }
+
+        private bool TrueOn10Percentage() {
+            return random.Next(0, 9) == 0;
+        }
+
+        private bool TrueOn50Percentage()
+        {
+            return random.Next(0, 9) < 5;
         }
 
         private long CalculateBirthByLesbo()
