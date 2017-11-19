@@ -7,8 +7,8 @@
     <ProjectGuid>{B826909C-E0DA-4722-889D-163FC7141BC3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GaynessPopulationBusiness</RootNamespace>
-    <AssemblyName>GaynessPopulationBusiness</AssemblyName>
+    <RootNamespace>PopuolationSimulation.Business</RootNamespace>
+    <AssemblyName>PopuolationSimulation.Business</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

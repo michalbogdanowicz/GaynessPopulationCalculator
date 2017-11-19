@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GaynessPopulationBusiness.Model
+namespace PopuolationSimulation.Business.Model
 {
   public  class HomosexualityRatios
     {

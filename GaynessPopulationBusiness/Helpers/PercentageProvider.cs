@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GaynessPopulationBusiness.Helpers
+namespace PopuolationSimulation.Business.Helpers
 {
     public class PercentageProvider
     {

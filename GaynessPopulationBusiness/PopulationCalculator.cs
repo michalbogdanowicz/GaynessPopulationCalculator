@@ -1,13 +1,13 @@
 ﻿
-using GaynessPopulationBusiness.Helpers;
-using GaynessPopulationBusiness.Model;
+using PopuolationSimulation.Business.Helpers;
+using PopuolationSimulation.Business.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GaynessPopulationBusiness
+namespace PopuolationSimulation.Business
 {
 
     public class PopulationCalculator

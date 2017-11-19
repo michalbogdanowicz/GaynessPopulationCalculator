@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaynessPopulationCalculator", "GaynessPopulationCalculator\GaynessPopulationCalculator.csproj", "{0C2C878C-C254-4E2D-A4DC-A65A0BB7D7D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleInterface", "GaynessPopulationCalculator\ConsoleInterface.csproj", "{0C2C878C-C254-4E2D-A4DC-A65A0BB7D7D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaynessPopulationBusiness", "GaynessPopulationBusiness\GaynessPopulationBusiness.csproj", "{B826909C-E0DA-4722-889D-163FC7141BC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopuolationSimulation.Business", "GaynessPopulationBusiness\PopuolationSimulation.Business.csproj", "{B826909C-E0DA-4722-889D-163FC7141BC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
