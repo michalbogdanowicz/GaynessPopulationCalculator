@@ -61,7 +61,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GaynessPopulationBusiness\PopuolationSimulation.Business.csproj">
+    <ProjectReference Include="..\PopuolationSimulation.Business\PopuolationSimulation.Business.csproj">
       <Project>{b826909c-e0da-4722-889d-163fc7141bc3}</Project>
       <Name>PopuolationSimulation.Business</Name>
     </ProjectReference>
