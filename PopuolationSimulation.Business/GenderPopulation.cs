@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PopuolationSimulation.Business
+namespace PopulationSimulation.Business
 {
    public class GenderPopulation
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PopuolationSimulation.Business.Model
+namespace PopulationSimulation.Business.Model
 {
     /// <summary>
     /// Contains the ratios of male/femalre birth for Straight and Lesbian.

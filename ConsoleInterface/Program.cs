@@ -1,6 +1,6 @@
 ﻿
-using PopuolationSimulation.Business;
-using PopuolationSimulation.Business.Model;
+using PopulationSimulation.Business;
+using PopulationSimulation.Business.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

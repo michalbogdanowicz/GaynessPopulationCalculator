@@ -1,13 +1,13 @@
 ﻿
-using PopuolationSimulation.Business.Helpers;
-using PopuolationSimulation.Business.Model;
+using PopulationSimulation.Business.Helpers;
+using PopulationSimulation.Business.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PopuolationSimulation.Business
+namespace PopulationSimulation.Business
 {
 
     public class PopulationCalculator
