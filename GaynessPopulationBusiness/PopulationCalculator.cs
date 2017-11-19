@@ -143,11 +143,6 @@ namespace GaynessPopulationBusiness
             }
         }
 
-
-        /// <summary>
-        /// using the same birht ration of straight https://en.wikipedia.org/wiki/Total_fertility_rate
-        /// </summary>
-        /// <returns></returns>
         private decimal CalculateBirthByLesbo(decimal birthRatio)
         {
             decimal birthnumber;
