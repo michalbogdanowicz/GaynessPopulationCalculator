@@ -40,12 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Manager\PersonManager.cs" />
+    <Compile Include="Model\DeathRatio.cs" />
+    <Compile Include="Model\Disease.cs" />
+    <Compile Include="Model\HealthHistory.cs" />
+    <Compile Include="Model\HealthStatus.cs" />
     <Compile Include="Model\HomosexualityRatios.cs" />
+    <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\SocietyUnit.cs" />
+    <Compile Include="Model\World.cs" />
     <Compile Include="PopulationCalculator.cs" />
     <Compile Include="GenderPopulation.cs" />
     <Compile Include="Helpers\PercentageProvider.cs" />
     <Compile Include="Model\BirthRatios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PupulationSimulator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
